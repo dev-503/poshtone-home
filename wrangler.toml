@@ -1,6 +1,10 @@
 name = "poshtone"
-pages_build_output_dir = "dist"
+main = "worker.js"
 compatibility_date = "2026-11-01"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
 
 # برای ذخیرهٔ فرم: یک KV بسازید و شناسه‌اش را اینجا بگذارید
 #   npx wrangler kv namespace create LEADS
