@@ -14,26 +14,27 @@
   // ظاهر شدن هنگام اسکرول (فقط بخش‌های پایین‌تر از دید)
   if (!calm && "IntersectionObserver" in window) {
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.remove("wait"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
-    $$(".reveal").forEach((el) => { if (el.getBoundingClientRect().top > innerHeight) { el.classList.add("wait"); io.observe(el); } });
+    const h = innerHeight;
+    $$(".reveal").filter((el) => el.getBoundingClientRect().top > h).forEach((el) => { el.classList.add("wait"); io.observe(el); });
   }
 
   if (!calm) {
     // چرخش عنوان
     const words = $$(".swap em"); let w = 0;
-    setInterval(() => { words[w].classList.remove("on"); w = (w + 1) % words.length; words[w].classList.add("on"); }, 2800);
+    setInterval(() => { if (document.hidden) return; words[w].classList.remove("on"); w = (w + 1) % words.length; words[w].classList.add("on"); }, 2800);
     // شمارنده‌ها
     $$("[data-count]").forEach((el) => { const end = +el.dataset.count; let t0;
       const step = (t) => { t0 ??= t; const p = Math.min((t - t0) / 1200, 1); el.textContent = Math.round(end * p).toLocaleString("fa-IR"); if (p < 1) requestAnimationFrame(step); };
       requestAnimationFrame(step); });
     // نور دنبال‌کنندهٔ موس روی کارت‌ها
-    $$(".product,.plugin").forEach((c) => c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(); c.style.setProperty("--mx", e.clientX - r.left + "px"); c.style.setProperty("--my", e.clientY - r.top + "px"); }));
+    $$(".product,.plugin").forEach((c) => c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(); c.style.setProperty("--mx", e.clientX - r.left + "px"); c.style.setProperty("--my", e.clientY - r.top + "px"); }, { passive: true }));
   }
 
   // نمونه پیامک هما
   const bubble = $("#bubble"), chips = $$("[data-sms]"); let timer, cur = 0;
   const show = (i) => { cur = i; chips.forEach((c, k) => c.setAttribute("aria-pressed", k === i)); bubble.textContent = chips[i].dataset.sms; bubble.classList.remove("new"); void bubble.offsetWidth; bubble.classList.add("new"); };
   chips.forEach((c, i) => c.addEventListener("click", () => { clearInterval(timer); show(i); }));
-  if (!calm) timer = setInterval(() => show((cur + 1) % chips.length), 3500);
+  if (!calm) timer = setInterval(() => { if (!document.hidden) show((cur + 1) % chips.length); }, 3500);
 
   // انتخاب خودکار محصول در فرم
   $$("[data-product]").forEach((a) => a.addEventListener("click", () => { $("#f-product").value = a.dataset.product; }));
