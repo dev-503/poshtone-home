@@ -1,6 +1,11 @@
 # تولید src/index.html از داده‌های محصولات
 def li(items): return "".join(f"<li>{{{{i:check:18:light}}}}<span>{x}</span></li>" for x in items)
-def demo_btn(name): return f'<a class="k-btn k-btn--secondary k-btn--sm" href="#contact" data-product="{name}">درخواست دمو {{{{i:arrow-left:16:light}}}}</a>'
+SITES = {"حساب‌یار":"hesabyiar.ir","پیمان":"hesabyiar.ir","هما اس‌ام‌اس":"homasms.ir","منوتم":"menutam.ir"}
+def demo_btn(name):
+    if name in SITES:
+        d = SITES[name]
+        return f'<a class="k-btn k-btn--primary k-btn--sm site" href="https://{d}" target="_blank" rel="noopener" aria-label="ورود به سایت {name} (در زبانهٔ تازه)">ورود به سایت <bdi dir="ltr">{d}</bdi> {{{{i:arrow-up-left:16:light}}}}</a>'
+    return f'<a class="k-btn k-btn--secondary k-btn--sm" href="#contact" data-product="{name}">درخواست دمو {{{{i:arrow-left:16:light}}}}</a>'
 
 # ---------- تصویرهای متحرک محصولات ----------
 erp = '<div class="v v-erp">' + "".join(f'<span style="--d:{i}">{{{{i:{ic}:26}}}}<b>{t}</b></span>' for i,(ic,t) in enumerate([("calculator","مالی"),("store","فروش"),("package","انبار"),("building-factory","تولید"),("users","منابع انسانی"),("chart-bar","گزارش‌ها")])) + '</div>'
@@ -55,7 +60,7 @@ bars = "".join(f'<span><i style="--h:{a}%;--d:{i}"></i><i class="o" style="--h:{
 
 faq = [("پشتوان چه محصولاتی دارد؟","شش نرم‌افزار (ERP سازمانی، حساب‌یار، پیمان، روند، CRM و منوتم)، دو افزونهٔ وردپرس (مرزگارد و Payto) و پنل پیامکی هما اس‌ام‌اس."),
  ("کدام محصول برای کسب‌وکار من مناسب است؟","برای سازمان چندواحدی ERP، برای بازرگانی و تولیدی حساب‌یار، برای فروش قسطی پیمان و برای کافه منوتم را ببینید. اگر مطمئن نیستید، در فرم تماس کارتان را توضیح دهید."),
- ("می‌توانم قبل از خرید دمو ببینم؟","روی «درخواست دمو» زیر هر محصول بزنید تا نام آن در فرم تماس انتخاب شود."),
+ ("می‌توانم قبل از خرید دمو ببینم؟","حساب‌یار، پیمان، منوتم و هما اس‌ام‌اس از دکمهٔ «ورود به سایت» در دسترس‌اند. برای بقیهٔ محصولات «درخواست دمو» را بزنید."),
  ("افزونه‌ها روی چه سایتی نصب می‌شوند؟","مرزگارد و Payto افزونهٔ وردپرس هستند و روی سایت وردپرسی شما نصب می‌شوند.")]
 faqh = "".join(f'<details class="k-accordion__item" name="faq"{" open" if i==0 else ""}><summary class="k-accordion__trigger">{q}</summary><div class="k-accordion__content">{a}</div></details>' for i,(q,a) in enumerate(faq))
 options = "".join(f"<option>{x}</option>" for x in ["مشاوره / نمی‌دانم","ERP سازمانی پشتوان","حساب‌یار","پیمان","روند","CRM پشتوان","منوتم","مرزگارد","Payto","هما اس‌ام‌اس","ساخت نرم‌افزار سفارشی"])

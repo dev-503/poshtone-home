@@ -27,10 +27,6 @@
       requestAnimationFrame(step); });
     // نور دنبال‌کنندهٔ موس روی کارت‌ها
     $$(".product,.plugin").forEach((c) => c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(); c.style.setProperty("--mx", e.clientX - r.left + "px"); c.style.setProperty("--my", e.clientY - r.top + "px"); }));
-    // کجی سه‌بعدی تصویر زیرساخت
-    const t = $("#tilt");
-    t.addEventListener("pointermove", (e) => { if (e.pointerType !== "mouse") return; const r = t.getBoundingClientRect(); t.style.setProperty("--ry", ((e.clientX - r.left) / r.width - .5) * 6 + "deg"); t.style.setProperty("--rx", (.5 - (e.clientY - r.top) / r.height) * 6 + "deg"); });
-    t.addEventListener("pointerleave", () => { t.style.removeProperty("--rx"); t.style.removeProperty("--ry"); });
   }
 
   // نمونه پیامک هما

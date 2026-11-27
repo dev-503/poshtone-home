@@ -24,7 +24,6 @@ W(out + "index.html", html);
 W(out + "assets/kashi.css", "/* Kashi UI — MIT — github.com/Sepantapouya/Kashi */\n" + kashi);
 copyFileSync(here + "site.css", out + "assets/site.css");
 copyFileSync(here + "main.js", out + "assets/main.js");
-copyFileSync(here + "cloud.png", out + "assets/cloud.png");
 copyFileSync(here + "Vazirmatn.woff2", out + "assets/Vazirmatn.woff2");
 copyFileSync(here + "Vazirmatn-OFL.txt", out + "assets/Vazirmatn-OFL.txt");
 copyFileSync(K + "/css/LICENSE", out + "assets/Kashi-LICENSE.txt");
@@ -32,7 +31,7 @@ copyFileSync(K + "/css/LICENSE", out + "assets/Kashi-LICENSE.txt");
 // نسخهٔ تک‌فایل برای پیش‌نمایش
 const b64 = (f) => R(here + f).toString("base64");
 const css = (kashi + R(here + "site.css", "utf8")).replace('url("./Vazirmatn.woff2")', `url("data:font/woff2;base64,${b64("Vazirmatn.woff2")}")`);
-const body = html.split("<!--BODY-->")[1].split("<!--/BODY-->")[0].replace("assets/cloud.png", `data:image/png;base64,${b64("cloud.png")}`);
+const body = html.split("<!--BODY-->")[1].split("<!--/BODY-->")[0];
 W(here + "../preview.html", `<title>پشتوان</title>
 <style>${css}</style>
 <script>for(const [k,v] of [["lang","fa"],["dir","rtl"],["data-theme","dark"]])document.documentElement.setAttribute(k,v);document.documentElement.classList.add("js","preview")</script>
