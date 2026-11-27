@@ -1,0 +1,6 @@
+preview.html
+.wrangler/
+node_modules/
+.DS_Store
+.dev.vars
+__pycache__/

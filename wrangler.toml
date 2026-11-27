@@ -1,0 +1,9 @@
+name = "poshtone"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-11-01"
+
+# برای ذخیرهٔ فرم: یک KV بسازید و شناسه‌اش را اینجا بگذارید
+#   npx wrangler kv namespace create LEADS
+# [[kv_namespaces]]
+# binding = "LEADS"
+# id = "PUT_ID_HERE"
